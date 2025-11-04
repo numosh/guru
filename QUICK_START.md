@@ -1,31 +1,60 @@
 # ⚡ Quick Start - GURU AI
 
-## 🎯 Install & Run dalam 3 Langkah
+## 🎯 Install & Run dalam 2 Cara
 
-### 1️⃣ Clone Repository
+### 🌍 Option 1: Global Command (Recommended)
+
+**Install sekali, pakai selamanya dari mana saja!**
+
 ```bash
 git clone https://github.com/numosh/guru.git
 cd guru
-```
-
-### 2️⃣ Run Installer
-```bash
-chmod +x install.sh
 ./install.sh
 ```
 
-### 3️⃣ Done! 🎉
-Aplikasi akan auto-run setelah installation.
+**Pilih:** `1. Global install`
+
+**Setelah install, dari directory manapun:**
+```bash
+guru
+```
+
+**That's it!** ✨
 
 ---
 
-## 🚀 Next Time - Super Easy!
+### 📁 Option 2: Local Install
 
+**Hanya bisa dijalankan dari folder guru**
+
+```bash
+git clone https://github.com/numosh/guru.git
+cd guru
+./install.sh
+```
+
+**Pilih:** `2. Local install`
+
+**Run dari folder guru:**
 ```bash
 cd guru
 ./run_guru.sh  # Linux/Mac
 run_guru.bat   # Windows
 ```
+
+---
+
+## 🚀 Comparison
+
+| Feature | Global Install | Local Install |
+|---------|----------------|---------------|
+| **Command** | `guru` (anywhere) | `./run_guru.sh` (in folder) |
+| **Convenience** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+| **Setup** | Same | Same |
+| **Portability** | ✅ Works everywhere | ❌ Folder-specific |
+| **Updates** | Auto via git pull | Auto via git pull |
+
+**Recommendation:** Use Global Install! 🌟
 
 ---
 
@@ -55,9 +84,9 @@ Pilih opsi [1/2]: _
 
 **Learning Mode:**
 ```
-�� Anda: Kenapa langit biru?
+💭 Anda: Kenapa langit biru?
 
-🎓 Respons GURU AI
+🎓 Respons GURU AI (Biru)
 Wah, pertanyaan bagus! Jadi gini ya, langit biru karena 
 cahaya matahari punya banyak warna. Waktu cahaya masuk 
 ke udara, warna biru paling suka menyebar. Makanya kita 
@@ -68,7 +97,7 @@ lihat langit jadi biru...
 ```
 💭 Anda: Saya tidak suka matematika
 
-💚 Respons GURU AI
+💚 Respons GURU AI (Hijau - Konseling)
 Aku ngerti kok. Matematika emang bisa bikin pusing ya. 
 Mau cerita kenapa kamu ga suka? Apa karena susah, atau 
 mungkin cara ngajarnya yang bikin bingung?
@@ -102,66 +131,39 @@ yang masing-masing berisi 4 kelereng...
 
 ---
 
-## 🌐 Online vs Offline Mode
+## 🆘 Common Issues
 
-| Feature | VirtueAI (Online) | Ollama (Offline) |
-|---------|-------------------|------------------|
-| Setup | No installation | Install Ollama + model |
-| Size | 0 MB | ~5 GB |
-| Speed | Fast | Depends on CPU |
-| Internet | Required | Not required |
-| Privacy | Cloud | 100% local |
-| Cost | Free | Free |
+**`guru: command not found`**
+```bash
+# Reinstall globally
+cd guru
+pip install -e .
+```
 
-**Recommendation:** Install both! Auto-fallback jika online gagal.
+**Permission denied**
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+**No AI backend available**
+```bash
+# Install Ollama
+brew install ollama  # Mac
+# or download from ollama.ai
+
+# Pull model
+ollama pull llama3.1:8b
+```
 
 ---
 
 ## 📚 Learn More
 
 - 📖 [Full Documentation](README.md)
-- 🗺️ [Roadmap & Future Plans](ROADMAP.md)
-- 🤝 [Contributing Guide](CONTRIBUTING.md)
-- 📦 [Detailed Installation](README_INSTALL.md)
-
----
-
-## 🆘 Getting Help
-
-**Something not working?**
-
-1. Check [README_INSTALL.md](README_INSTALL.md) - Troubleshooting section
-2. Search [GitHub Issues](https://github.com/numosh/guru/issues)
-3. Create new issue if not found
-4. Ask in [Discussions](https://github.com/numosh/guru/discussions)
-
-**Common Issues:**
-- Python not found → Install Python 3.7+
-- Permission denied → `chmod +x install.sh`
-- No AI backend → Install Ollama OR connect internet
-
----
-
-## 🎓 What Makes GURU AI Special?
-
-✨ **Dual Mode**
-- 📚 Pembelajaran (Academic)
-- 💚 Konseling (Emotional support)
-
-🤖 **Multi-Agent QA**
-- Guru Muda (generate answer)
-- Guru Senior (quality check)
-- Kepala Sekolah (safety approval)
-
-🇮🇩 **Optimized untuk Indonesia**
-- Bahasa natural & friendly
-- Konteks pendidikan Indonesia
-- Sesuai budaya lokal
-
-🔒 **Safe & Empathetic**
-- No judgment
-- Age-appropriate language
-- Redirect to professionals when needed
+- 🌍 [Global Command Setup](GLOBAL_COMMAND.md)
+- 🗺️ [Roadmap](ROADMAP.md)
+- 🤝 [Contributing](CONTRIBUTING.md)
 
 ---
 
@@ -173,10 +175,17 @@ cd guru
 ./install.sh
 ```
 
-**That's it! Selamat menggunakan GURU AI! 🎉**
+**Choose: 1 (Global)**
+
+**Then from anywhere:**
+```bash
+guru
+```
+
+**Selamat menggunakan GURU AI! 🎉**
 
 ---
 
 Made with ❤️ by **Anugrah Prahasta** (@anugrahprahasta)
 
-"Mencerdaskan Indonesia, Satu Percakapan AI at a Time" 🇮🇩🎓
+"Mencerdaskan Indonesia, Satu Command at a Time" 🇮🇩🎓
