@@ -9,12 +9,17 @@ This allows running 'guru' from anywhere in terminal
 import sys
 import os
 
-# Add the package directory to path
-package_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, package_dir)
+# Add the directory containing this script to Python path
+script_dir = os.path.dirname(os.path.abspath(__file__))
+if script_dir not in sys.path:
+    sys.path.insert(0, script_dir)
 
-# Import and run main application
-from guru_ai import main
-
-if __name__ == "__main__":
+# Now import and run
+try:
+    from guru_ai import main
     main()
+except ImportError as e:
+    print(f"Error: Cannot import guru_ai module: {e}")
+    print(f"Script directory: {script_dir}")
+    print(f"Python path: {sys.path}")
+    sys.exit(1)
