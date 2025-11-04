@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+"""
+GURU AI - Global Command Entry Point
+Author: Anugrah Prahasta (@anugrahprahasta)
+
+This allows running 'guru' from anywhere in terminal
+"""
+
+import sys
+import os
+
+# Add the package directory to path
+package_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, package_dir)
+
+# Import and run main application
+from guru_ai import main
+
+if __name__ == "__main__":
+    main()

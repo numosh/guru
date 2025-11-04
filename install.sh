@@ -41,9 +41,27 @@ echo -e "${CYAN}🖥️  Detected OS: ${MACHINE}${NC}"
 echo ""
 
 #############################################
+# Installation Mode Selection
+#############################################
+echo -e "${YELLOW}Choose installation mode:${NC}"
+echo -e "  ${GREEN}1.${NC} Global install (command: ${CYAN}guru${NC} from anywhere)"
+echo -e "  ${GREEN}2.${NC} Local install (run from this directory only)"
+echo ""
+read -p "$(echo -e ${CYAN}Select mode [1/2]: ${NC})" INSTALL_MODE
+
+GLOBAL_INSTALL=false
+if [[ "$INSTALL_MODE" == "1" ]]; then
+    GLOBAL_INSTALL=true
+    echo -e "${GREEN}→ Global installation selected${NC}"
+else
+    echo -e "${GREEN}→ Local installation selected${NC}"
+fi
+echo ""
+
+#############################################
 # 1. Check Python
 #############################################
-echo -e "${YELLOW}[1/5] Checking Python...${NC}"
+echo -e "${YELLOW}[1/6] Checking Python...${NC}"
 
 if command -v python3 &> /dev/null; then
     PYTHON_VERSION=$(python3 --version 2>&1 | awk '{print $2}')
@@ -70,7 +88,7 @@ fi
 # 2. Create Virtual Environment
 #############################################
 echo ""
-echo -e "${YELLOW}[2/5] Setting up virtual environment...${NC}"
+echo -e "${YELLOW}[2/6] Setting up virtual environment...${NC}"
 
 if [ ! -d "venv" ]; then
     echo -e "${CYAN}Creating virtual environment...${NC}"
@@ -93,7 +111,7 @@ echo -e "${GREEN}✓ Virtual environment activated${NC}"
 # 3. Install Dependencies
 #############################################
 echo ""
-echo -e "${YELLOW}[3/5] Installing dependencies...${NC}"
+echo -e "${YELLOW}[3/6] Installing dependencies...${NC}"
 
 if [ -f "requirements.txt" ]; then
     pip install --upgrade pip --quiet
@@ -105,10 +123,27 @@ else
 fi
 
 #############################################
+# 3.5. Global Installation (Optional)
+#############################################
+if [ "$GLOBAL_INSTALL" = true ]; then
+    echo ""
+    echo -e "${YELLOW}[4/6] Installing globally...${NC}"
+    
+    # Install package globally using pip
+    pip install -e . --quiet
+    
+    echo -e "${GREEN}✓ GURU AI installed globally${NC}"
+    echo -e "${CYAN}   You can now run: ${YELLOW}guru${CYAN} from anywhere!${NC}"
+else
+    echo ""
+    echo -e "${YELLOW}[4/6] Skipping global installation...${NC}"
+fi
+
+#############################################
 # 4. Check Internet Connection
 #############################################
 echo ""
-echo -e "${YELLOW}[4/5] Checking connectivity...${NC}"
+echo -e "${YELLOW}[5/6] Checking connectivity...${NC}"
 
 if curl -s --head --request GET https://api.virtueai.id > /dev/null; then
     echo -e "${GREEN}✓ VirtueAI API accessible (Online mode available)${NC}"
@@ -173,7 +208,7 @@ fi
 # 5. Create Run Script
 #############################################
 echo ""
-echo -e "${YELLOW}[5/5] Creating launcher...${NC}"
+echo -e "${YELLOW}[6/6] Creating launcher...${NC}"
 
 # Create quick run script
 cat > run_guru.sh << 'EOF'
@@ -207,6 +242,13 @@ echo ""
 echo -e "${CYAN}🚀 To run GURU AI:${NC}"
 echo ""
 
+if [ "$GLOBAL_INSTALL" = true ]; then
+    echo -e "${YELLOW}   From anywhere in terminal:${NC}"
+    echo -e "${GREEN}   guru${NC}"
+    echo ""
+    echo -e "${YELLOW}   Or use launchers:${NC}"
+fi
+
 if [ "$MACHINE" = "Windows" ]; then
     echo -e "${YELLOW}   Double-click: run_guru.bat${NC}"
     echo -e "${YELLOW}   Or run: python guru_ai.py${NC}"
@@ -230,14 +272,24 @@ if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z $REPLY ]]; then
     echo ""
     echo -e "${GREEN}🚀 Starting GURU AI...${NC}"
     echo ""
-    $PYTHON_CMD guru_ai.py
+    
+    if [ "$GLOBAL_INSTALL" = true ]; then
+        guru
+    else
+        $PYTHON_CMD guru_ai.py
+    fi
 else
     echo ""
     echo -e "${CYAN}You can run GURU AI anytime with:${NC}"
-    if [ "$MACHINE" = "Windows" ]; then
-        echo -e "${YELLOW}   run_guru.bat${NC}"
+    
+    if [ "$GLOBAL_INSTALL" = true ]; then
+        echo -e "${GREEN}   guru${NC}"
     else
-        echo -e "${YELLOW}   ./run_guru.sh${NC}"
+        if [ "$MACHINE" = "Windows" ]; then
+            echo -e "${YELLOW}   run_guru.bat${NC}"
+        else
+            echo -e "${YELLOW}   ./run_guru.sh${NC}"
+        fi
     fi
     echo ""
 fi
