@@ -307,8 +307,10 @@ if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z $REPLY ]]; then
     echo ""
     
     if [ "$GLOBAL_INSTALL" = true ]; then
-        guru
+        # Use the actual guru command from /usr/local/bin
+        /usr/local/bin/guru
     else
+        # Use python directly
         $PYTHON_CMD guru_ai.py
     fi
 else
