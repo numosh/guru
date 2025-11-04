@@ -1,25 +1,15 @@
-#!/usr/bin/env python3
-"""
-GURU AI - Global Command Entry Point
-Author: Anugrah Prahasta (@anugrahprahasta)
+#!/bin/bash
+# GURU AI - Global Command Wrapper
+# Author: Anugrah Prahasta (@anugrahprahasta)
 
-This allows running 'guru' from anywhere in terminal
-"""
+# Get the directory where this script lives (the real guru directory)
+GURU_DIR="$(cd "$(dirname "$(readlink -f "$0" || echo "$0")")" && pwd)"
 
-import sys
-import os
-
-# Add the directory containing this script to Python path
-script_dir = os.path.dirname(os.path.abspath(__file__))
-if script_dir not in sys.path:
-    sys.path.insert(0, script_dir)
-
-# Now import and run
-try:
-    from guru_ai import main
-    main()
-except ImportError as e:
-    print(f"Error: Cannot import guru_ai module: {e}")
-    print(f"Script directory: {script_dir}")
-    print(f"Python path: {sys.path}")
-    sys.exit(1)
+# Activate virtual environment
+if [ -f "$GURU_DIR/venv/bin/activate" ]; then
+    source "$GURU_DIR/venv/bin/activate"
+    python "$GURU_DIR/guru_ai.py"
+else
+    # Fallback: use system python
+    python3 "$GURU_DIR/guru_ai.py"
+fi
