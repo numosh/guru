@@ -53,6 +53,16 @@ GLOBAL_INSTALL=false
 if [[ "$INSTALL_MODE" == "1" ]]; then
     GLOBAL_INSTALL=true
     echo -e "${GREEN}→ Global installation selected${NC}"
+    echo ""
+    echo -e "${YELLOW}⚠️  Note: Global install requires guru command in shell PATH${NC}"
+    echo -e "${YELLOW}   Installer will create symlink to /usr/local/bin/guru${NC}"
+    echo ""
+    read -p "$(echo -e ${CYAN}Continue with global install? [Y/n]: ${NC})" -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]] && [[ ! -z $REPLY ]]; then
+        echo -e "${YELLOW}Switching to local install...${NC}"
+        GLOBAL_INSTALL=false
+    fi
 else
     echo -e "${GREEN}→ Local installation selected${NC}"
 fi
@@ -129,11 +139,31 @@ if [ "$GLOBAL_INSTALL" = true ]; then
     echo ""
     echo -e "${YELLOW}[4/6] Installing globally...${NC}"
     
-    # Install package globally using pip
-    pip install -e . --quiet
+    # Get the full path to guru executable
+    GURU_PATH="$(pwd)/guru"
     
-    echo -e "${GREEN}✓ GURU AI installed globally${NC}"
-    echo -e "${CYAN}   You can now run: ${YELLOW}guru${CYAN} from anywhere!${NC}"
+    # Make guru executable
+    chmod +x guru
+    
+    # Create symlink to /usr/local/bin (requires sudo)
+    if [ -w "/usr/local/bin" ]; then
+        ln -sf "$GURU_PATH" /usr/local/bin/guru
+        echo -e "${GREEN}✓ GURU AI installed globally${NC}"
+        echo -e "${CYAN}   Symlink created: /usr/local/bin/guru → $GURU_PATH${NC}"
+    else
+        echo -e "${YELLOW}⚠️  Need sudo to create symlink in /usr/local/bin${NC}"
+        sudo ln -sf "$GURU_PATH" /usr/local/bin/guru
+        echo -e "${GREEN}✓ GURU AI installed globally (with sudo)${NC}"
+        echo -e "${CYAN}   Symlink created: /usr/local/bin/guru → $GURU_PATH${NC}"
+    fi
+    
+    # Verify installation
+    if command -v guru &> /dev/null; then
+        echo -e "${GREEN}✓ Verified: 'guru' command is now available!${NC}"
+    else
+        echo -e "${RED}⚠️  Warning: 'guru' command not found in PATH${NC}"
+        echo -e "${YELLOW}   You may need to restart your terminal or run: hash -r${NC}"
+    fi
 else
     echo ""
     echo -e "${YELLOW}[4/6] Skipping global installation...${NC}"
@@ -245,6 +275,9 @@ echo ""
 if [ "$GLOBAL_INSTALL" = true ]; then
     echo -e "${YELLOW}   From anywhere in terminal:${NC}"
     echo -e "${GREEN}   guru${NC}"
+    echo ""
+    echo -e "${YELLOW}   If 'guru' not found, restart terminal or run:${NC}"
+    echo -e "${CYAN}   hash -r${NC}"
     echo ""
     echo -e "${YELLOW}   Or use launchers:${NC}"
 fi
