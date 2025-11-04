@@ -38,7 +38,40 @@ Aplikasi terminal interaktif menggunakan Python untuk profiling guru SD, SMP, SM
      ollama pull llama3.1:8b
      ```
 
-## 🚀 Instalasi
+## 🚀 Quick Start - One Command Install!
+
+### **Option 1: Automatic Installation (Recommended)**
+
+```bash
+# Clone repository
+git clone https://github.com/numosh/guru.git
+cd guru
+
+# Run one-command installer
+chmod +x install.sh
+./install.sh
+```
+
+**Installer akan:**
+- ✅ Check Python 3.7+
+- ✅ Create virtual environment
+- ✅ Install dependencies (requests, rich)
+- ✅ Check VirtueAI & Ollama connectivity
+- ✅ Optionally download Ollama model
+- ✅ Create launcher scripts
+- ✅ Auto-run aplikasi
+
+**Setelah install, jalankan dengan:**
+```bash
+./run_guru.sh  # Linux/Mac
+run_guru.bat   # Windows
+```
+
+---
+
+### **Option 2: Manual Installation**
+
+Jika prefer manual setup:
 
 1. Clone atau download repository ini
 2. Install dependencies:

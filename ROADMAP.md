@@ -1,7 +1,7 @@
 # 🗺️ ROADMAP - GURU AI
 
 **Project:** AI Terminal untuk Profiling Guru Indonesia  
-**Author:** @anugrahprahasta  
+**Author:** Anugrah Prahasta (@anugrahprahasta)  
 **Started:** 2025  
 **Current Version:** 1.0.0
 
@@ -318,7 +318,7 @@ Global Education Network
 ## 📞 Contact & Links
 
 - **GitHub:** https://github.com/numosh/guru
-- **Author:** @anugrahprahasta
+- **Author:** Anugrah Prahasta (@anugrahprahasta)
 - **Email:** [TBD]
 - **Discord:** [TBD]
 - **Documentation:** See README.md
