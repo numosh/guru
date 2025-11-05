@@ -429,6 +429,31 @@ def agentic_qa_process(initial_answer: str, user_question: str, level: str, role
     return current_answer
 
 
+
+def clean_markdown(text: str) -> str:
+    """
+    Remove markdown formatting dari text AI response.
+    Removes: **, *, __, _, ##, ###, etc.
+    """
+    import re
+    
+    # Remove bold: **text** or __text__
+    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
+    text = re.sub(r'__([^_]+)__', r'\1', text)
+    
+    # Remove italic: *text* or _text_ (but careful not to break formulas)
+    text = re.sub(r'(?<!\*)\*(?!\*)([^*\n]+?)(?<!\*)\*(?!\*)', r'\1', text)
+    
+    # Remove headers: ### text → text
+    text = re.sub(r'^#{1,6}\s+', '', text, flags=re.MULTILINE)
+    
+    # Remove code blocks: ```code``` → code
+    text = re.sub(r'```[a-z]*\n?', '', text)
+    text = re.sub(r'```', '', text)
+    
+    return text
+
+
 def query_ai(prompt_text: str, system_prompt: str) -> str:
     """
     Kirim permintaan ke AI API (VirtueAI atau Ollama) dan dapatkan response.
