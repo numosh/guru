@@ -512,6 +512,9 @@ def query_ai(prompt_text: str, system_prompt: str) -> str:
         data = response.json()
         ai_response = data.get("response", "").strip()
         
+        # Clean markdown formatting FIRST
+        ai_response = clean_markdown(ai_response)
+        
         # Deteksi mode konseling dari marker (untuk internal saja)
         if "[MODE KONSELING]" in ai_response:
             counseling_mode = True
