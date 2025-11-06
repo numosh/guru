@@ -1,15 +1,5 @@
 #!/bin/bash
-# GURU AI - Global Command Wrapper
-# Author: Anugrah Prahasta (@anugrahprahasta)
-
-# Get the directory where this script lives (the real guru directory)
-GURU_DIR="$(cd "$(dirname "$(readlink -f "$0" || echo "$0")")" && pwd)"
-
-# Activate virtual environment
-if [ -f "$GURU_DIR/venv/bin/activate" ]; then
-    source "$GURU_DIR/venv/bin/activate"
-    python "$GURU_DIR/guru_ai.py"
-else
-    # Fallback: use system python
-    python3 "$GURU_DIR/guru_ai.py"
-fi
+# GURU AI Global Launcher
+cd "/Users/anugrah/Documents/Windsurf/codux/guru"
+source venv/bin/activate 2>/dev/null || source venv/Scripts/activate
+python guru_ai_improved.py "$@"
